@@ -1,0 +1,400 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #0c1414;
+    --bg-card: #0a2a2a;
+    --bg-code: #0a1f1f;
+    --accent: #0a6a67;
+    --accent-hover: #09736f;
+    --accent-soft: rgba(10, 106, 103, 0.2);
+    --text-primary: #e0f0e0;
+    --text-secondary: #8aa0a0;
+    --success: #0a6a67;
+    --danger: #ff258e;
+    --warning: #fff8b4;
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+/* Заголовок */
+.header {
+    text-align: center;
+    padding: 32px 20px;
+    background: linear-gradient(105deg, #0a4a4a, #0a6a67);
+    border-radius: 12px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+}
+
+.header h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: white;
+}
+
+.header p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    margin-top: 6px;
+}
+
+/* Основная сетка */
+.main-content {
+    display: grid;
+    grid-template-columns: 220px 1fr 380px;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+/* Базовый стиль панелей */
+.panel {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.panel h2 {
+    color: var(--accent);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Палитра */
+.palette {
+    max-height: 620px;
+    overflow-y: auto;
+}
+
+.blocks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.block-item {
+    background: #1e3a3a;
+    padding: 12px 10px;
+    border-radius: 8px;
+    cursor: grab;
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    text-align: center;
+    user-select: none;
+    border: 1px solid transparent;
+}
+
+.block-item:hover {
+    background: #2a4a4a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    border-color: var(--accent);
+}
+
+.block-item:active {
+    cursor: grabbing;
+}
+
+.block-icon {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.block-name {
+    font-size: 0.8rem;
+    color: #a0c0a0;
+    margin-top: 4px;
+}
+
+/* Рабочая область */
+.workspace {
+    display: flex;
+    flex-direction: column;
+}
+
+.workspace-area {
+    flex: 1;
+    min-height: 400px;
+    background: #0f1f1f;
+    border: 2px dashed rgba(10, 106, 103, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 12px;
+    transition: border-color var(--transition), background var(--transition);
+}
+
+.workspace-area.drag-over {
+    border-color: var(--accent);
+    background: rgba(10, 106, 103, 0.08);
+}
+
+.workspace-empty {
+    color: var(--text-secondary);
+    width: 100%;
+    text-align: center;
+    align-self: center;
+    font-size: 1.1rem;
+}
+
+.gate-block {
+    background: #0a5a5a;
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    animation: gateAppear 0.25s ease-out;
+}
+
+@keyframes gateAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.remove-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: white;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition), transform var(--transition);
+    font-size: 0.9rem;
+    line-height: 1;
+}
+
+.remove-btn:hover {
+    background: var(--danger);
+    transform: scale(1.1);
+}
+
+.workspace-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 4px 14px rgba(10, 106, 103, 0.4);
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(10, 106, 103, 0.6);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+}
+
+.btn-secondary:hover {
+    background: var(--accent-soft);
+}
+
+/* Панель кода */
+.code-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.code-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: 6px 6px 0 0;
+    font-weight: 500;
+    transition: background var(--transition), color var(--transition);
+}
+
+.tab-btn.active {
+    background: var(--accent);
+    color: white;
+}
+
+.tab-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.code-window {
+    flex: 1;
+    background: var(--bg-code);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 0 6px 6px 6px;
+    padding: 16px;
+    overflow-y: auto;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 0.85rem;
+}
+
+.code-window pre {
+    margin: 0;
+    color: #c0d0c0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.5;
+}
+
+/* Результаты */
+.results-panel {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.results-panel h3 {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+}
+
+.results-container {
+    background: #0f1c1c;
+    padding: 18px;
+    border-radius: 8px;
+    border-left: 4px solid var(--success);
+    font-family: 'Fira Code', monospace;
+    transition: opacity var(--transition);
+}
+
+.results-container p {
+    margin: 8px 0;
+    color: var(--text-secondary);
+}
+
+.results-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    color: var(--text-primary);
+}
+
+.results-container th {
+    background: rgba(10, 106, 103, 0.2);
+    padding: 10px 8px;
+    text-align: left;
+    color: var(--accent);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-weight: 600;
+}
+
+.results-container td {
+    padding: 10px 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Скроллбар */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2a5a5a;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+/* Адаптивность */
+@media (max-width: 1400px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .code-panel {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 1.8rem;
+    }
+
+    .main-content {
+        gap: 16px;
+    }
+
+    .workspace-area {
+        min-height: 280px;
+    }
+
+    .btn {
+        padding: 10px 14px;
+        font-size: 0.85rem;
+    }
+}
