@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Конструктор квантовых схем</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Конструктор квантовых схем</h1>
+            <p>Перетащите гейты в рабочую область, чтобы построить цепь</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Палитра гейтов -->
+            <aside class="panel palette">
+                <h2>Квантовые гейты</h2>
+                <div class="blocks-container">
+                    <div class="block-item" draggable="true" data-gate="H">
+                        Адамар (H)
+                        <span class="theory-btn" title="Теория">?</span>
+                    </div>
+                    <div class="block-item" draggable="true" data-gate="X">
+                        Паули‑X
+                        <span class="theory-btn" title="Теория">?</span>
+                    </div>
+                    <div class="block-item" draggable="true" data-gate="Y">
+                        Паули‑Y
+                        <span class="theory-btn" title="Теория">?</span>
+                    </div>
+                    <div class="block-item" draggable="true" data-gate="Z">
+                        Паули‑Z
+                        <span class="theory-btn" title="Теория">?</span>
+                    </div>
+                    <div class="block-item" draggable="true" data-gate="S">
+                        S‑гейт
+                        <span class="theory-btn" title="Теория">?</span>
+                    </div>
+                    <div class="block-item" draggable="true" data-gate="T">
+                        T‑гейт
+                        <span class="theory-btn" title="Теория">?</span>
+                    </div>
+                    <div class="block-item" draggable="true" data-gate="CNOT">
+                        CNOT
+                        <span class="theory-btn" title="Теория">?</span>
+                    </div>
+                    <div class="block-item" draggable="true" data-gate="SWAP">
+                        SWAP
+                        <span class="theory-btn" title="Теория">?</span>
+                    </div>
+                    <div class="block-item" draggable="true" data-gate="Measure">
+                        Измерение
+                        <span class="theory-btn" title="Теория">?</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Рабочая область -->
+            <main class="panel workspace">
+                <h2>Рабочая область</h2>
+                <div class="workspace-area" id="workspaceArea">
+                    <div class="workspace-empty">Перетащите гейты сюда</div>
+                </div>
+                <div class="workspace-controls">
+                    <div class="qubit-control">
+                        <label for="qubitCount">Кубитов:</label>
+                        <input type="number" id="qubitCount" min="1" max="10" value="2" />
+                    </div>
+                    <button class="btn btn-secondary" id="clearBtn">Очистить</button>
+                    <button class="btn btn-primary" id="executeBtn">Выполнить</button>
+                </div>
+            </main>
+
+            <!-- Панель кода -->
+            <aside class="panel code-panel">
+                <h2>Сгенерированный код</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" data-lang="python">Python</button>
+                    <button class="tab-btn" data-lang="cpp">C++</button>
+                </div>
+                <div class="code-display" id="codeDisplay"></div>
+            </aside>
+        </div>
+
+        <!-- Результаты -->
+        <section class="panel results-panel" id="resultsPanel">
+            <h3>Результаты выполнения</h3>
+            <div class="results-container" id="resultsContainer">
+                Здесь будут отображаться результаты выполнения схемы
+            </div>
+        </section>
+
+        <!-- Примеры схем -->
+        <section class="panel examples-panel">
+            <h2>Примеры схем</h2>
+            <div class="examples-container" id="examplesContainer">
+                <!-- Заполняется динамически из JS -->
+            </div>
+        </section>
+
+        <!-- Теория (статическая панель больше не используется, оставлена для возможного контента) -->
+        <section class="panel theory-panel">
+            <h2>Теория</h2>
+            <div class="theory-container" id="theoryContainer">
+                Наведите на знак <strong>?</strong> рядом с гейтом, чтобы увидеть описание.
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

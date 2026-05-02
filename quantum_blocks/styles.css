@@ -1,0 +1,474 @@
+/* === Базовые стили проекта === */
+:root {
+    --bg-primary: #0a1919;
+    --bg-secondary: #0d2323;
+    --bg-card: #153030;
+    --bg-code: #0d1b1b;
+    --accent: #32cdcd;
+    --accent-hover: #28a8a8;
+    --text-primary: #e0f0f0;
+    --text-secondary: #a0c0c0;
+    --border: #1e3a3a;
+    --danger: #e74c3c;
+    --success: #2ecc71;
+    --transition: 0.2s ease;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.header {
+    text-align: center;
+    padding: 24px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    color: var(--accent);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 240px 1fr 320px;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+@media (max-width: 1100px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+.panel {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid var(--border);
+}
+
+.palette h2, .workspace h2, .code-panel h2 {
+    color: var(--accent);
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+}
+
+/* Блоки гейтов */
+.blocks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.block-item {
+    background: var(--bg-card);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 12px;
+    cursor: grab;
+    user-select: none;
+    transition: all var(--transition);
+    color: var(--accent);
+    font-weight: 500;
+    text-align: center;
+    font-size: 0.95rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.block-item:hover {
+    background: var(--accent);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(50, 205, 205, 0.2);
+}
+
+.block-item:active {
+    cursor: grabbing;
+    transform: scale(0.97);
+}
+
+/* Знак вопроса в палитре */
+.block-item .theory-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    font-size: 0.7rem;
+    color: white;
+    cursor: help;
+    margin-left: 4px;
+    transition: background var(--transition);
+}
+
+.block-item .theory-btn:hover {
+    background: rgba(255,255,255,0.4);
+}
+
+/* Рабочая область */
+.workspace-area {
+    min-height: 300px;
+    background: var(--bg-code);
+    border-radius: 8px;
+    padding: 12px;
+    border: 2px dashed var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: flex-start;
+    transition: border-color var(--transition);
+}
+
+.workspace-area.drag-over {
+    border-color: var(--accent);
+    background: rgba(50, 205, 205, 0.03);
+}
+
+.workspace-empty {
+    color: var(--text-secondary);
+    font-style: italic;
+    width: 100%;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.gate-block {
+    background: var(--bg-card);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    padding: 6px 8px;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: default;
+    transition: background var(--transition);
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Знак вопроса в рабочей области */
+.gate-block .theory-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
+    font-size: 0.65rem;
+    color: white;
+    cursor: help;
+    margin-right: 2px;
+    transition: background 0.2s;
+}
+
+.gate-block .theory-btn:hover {
+    background: rgba(255,255,255,0.5);
+}
+
+.gate-block .remove-btn {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0 4px;
+    transition: color var(--transition);
+}
+
+.gate-block .remove-btn:hover {
+    color: #ff6b6b;
+}
+
+/* Селекторы кубитов внутри гейтов */
+.gate-block select {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    padding: 2px 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.gate-block select:hover,
+.gate-block select:focus {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+}
+
+/* Панель управления кубитами */
+.qubit-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: auto;
+}
+
+.qubit-control label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.qubit-control input {
+    width: 60px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--accent);
+    background: var(--bg-code);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Кнопки */
+.workspace-controls {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all var(--transition);
+    font-weight: 500;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+
+.btn-secondary:hover {
+    background: var(--border);
+    color: var(--text-primary);
+}
+
+/* Панель кода */
+.tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 6px 12px;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all var(--transition);
+    border-bottom: none;
+}
+
+.tab-btn.active {
+    background: var(--bg-card);
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.code-display {
+    background: var(--bg-code);
+    border-radius: 8px;
+    padding: 12px;
+    font-family: 'Cascadia Code', 'Fira Code', monospace;
+    font-size: 0.82rem;
+    white-space: pre-wrap;
+    max-height: 400px;
+    overflow-y: auto;
+    color: var(--text-primary);
+}
+
+/* Результаты */
+.results-panel {
+    margin-bottom: 16px;
+}
+
+.results-panel h3 {
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.results-container {
+    background: var(--bg-code);
+    border-radius: 8px;
+    padding: 12px;
+    min-height: 60px;
+    color: var(--text-secondary);
+}
+
+.results-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0;
+}
+
+.results-container th,
+.results-container td {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+}
+
+.results-container th {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* ========== НОВЫЕ СТИЛИ ========== */
+
+/* Примеры */
+.examples-panel {
+    margin-top: 20px;
+}
+
+.examples-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.example-item {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 280px;
+}
+
+.example-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background var(--transition), color var(--transition);
+    text-align: left;
+}
+
+.example-btn:hover {
+    background: var(--accent);
+    color: white;
+}
+
+.example-desc {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Панель теории (статическая) */
+.theory-panel {
+    margin-top: 20px;
+}
+
+.theory-container {
+    background: #0f1c1c;
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Всплывающая подсказка (тултип) */
+.theory-tooltip {
+    position: absolute;
+    background: #1a2e2e;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    max-width: 240px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    z-index: 1000;
+    pointer-events: none;
+    animation: tooltipFadeIn 0.15s ease;
+}
+
+.theory-tooltip strong {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.theory-tooltip p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+@keyframes tooltipFadeIn {
+    from { opacity: 0; transform: translateX(4px); }
+    to { opacity: 1; transform: translateX(0); }
+}
